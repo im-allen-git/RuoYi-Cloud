@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysCollectionResultMapper">
+    
+    <resultMap type="SysCollectionResult" id="SysCollectionResultResult">
+        <result property="id"    column="id"    />
+        <result property="collectionId"    column="collection_id"    />
+        <result property="result"    column="result"    />
+        <result property="filterResult"    column="filter_result"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectSysCollectionResultVo">
+        select id, collection_id, result, filter_result, create_time from sys_collection_result
+    </sql>
+
+    <select id="selectSysCollectionResultList" parameterType="SysCollectionResult" resultMap="SysCollectionResultResult">
+        <include refid="selectSysCollectionResultVo"/>
+        <where>  
+            <if test="collectionId != null "> and collection_id = #{collectionId}</if>
+            <if test="result != null  and result != ''"> and result = #{result}</if>
+            <if test="filterResult != null  and filterResult != ''"> and filter_result = #{filterResult}</if>
+        </where>
+        order by create_time desc
+    </select>
+    
+    <select id="selectSysCollectionResultById" parameterType="Long" resultMap="SysCollectionResultResult">
+        <include refid="selectSysCollectionResultVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysCollectionResult" parameterType="SysCollectionResult">
+        insert into sys_collection_result
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="collectionId != null">collection_id,</if>
+            <if test="result != null">result,</if>
+            <if test="filterResult != null">filter_result,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="collectionId != null">#{collectionId},</if>
+            <if test="result != null">#{result},</if>
+            <if test="filterResult != null">#{filterResult},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysCollectionResult" parameterType="SysCollectionResult">
+        update sys_collection_result
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="collectionId != null">collection_id = #{collectionId},</if>
+            <if test="result != null">result = #{result},</if>
+            <if test="filterResult != null">filter_result = #{filterResult},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysCollectionResultById" parameterType="Long">
+        delete from sys_collection_result where id = #{id}
+    </delete>
+
+    <delete id="deleteSysCollectionResultByIds" parameterType="String">
+        delete from sys_collection_result where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

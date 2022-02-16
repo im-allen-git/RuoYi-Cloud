@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysHttpCollectionMapper">
+    
+    <resultMap type="SysHttpCollection" id="SysHttpCollectionResult">
+        <result property="id"    column="id"    />
+        <result property="httpUrl"    column="http_url"    />
+        <result property="httpMethod"    column="http_method"    />
+        <result property="httpParam"    column="http_param"    />
+        <result property="dataDeal"    column="data_deal"    />
+        <result property="cronFlag"    column="cron_flag"    />
+        <result property="cronParam"    column="cron_param"    />
+        <result property="httpsFlag"    column="https_flag"    />
+        <result property="httpsCertificate"    column="https_certificate"    />
+        <result property="proxyFlag"    column="proxy_flag"    />
+        <result property="proxyParam"    column="proxy_param"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="adminId"    column="admin_id"    />
+        <result property="remark"    column="remark"    />
+        <result property="rm1"    column="rm1"    />
+        <result property="rm2"    column="rm2"    />
+    </resultMap>
+
+    <sql id="selectSysHttpCollectionVo">
+        select id, http_url, http_method, http_param, data_deal, cron_flag, cron_param, https_flag, https_certificate, proxy_flag, proxy_param, create_time, update_time, admin_id, remark, rm1, rm2 from sys_http_collection
+    </sql>
+
+    <select id="selectSysHttpCollectionList" parameterType="SysHttpCollection" resultMap="SysHttpCollectionResult">
+        <include refid="selectSysHttpCollectionVo"/>
+        <where>  
+            <if test="httpUrl != null  and httpUrl != ''"> and http_url = #{httpUrl}</if>
+            <if test="httpMethod != null "> and http_method = #{httpMethod}</if>
+            <if test="httpParam != null  and httpParam != ''"> and http_param = #{httpParam}</if>
+            <if test="dataDeal != null  and dataDeal != ''"> and data_deal = #{dataDeal}</if>
+            <if test="cronFlag != null "> and cron_flag = #{cronFlag}</if>
+            <if test="cronParam != null  and cronParam != ''"> and cron_param = #{cronParam}</if>
+            <if test="httpsFlag != null "> and https_flag = #{httpsFlag}</if>
+            <if test="httpsCertificate != null  and httpsCertificate != ''"> and https_certificate = #{httpsCertificate}</if>
+            <if test="proxyFlag != null "> and proxy_flag = #{proxyFlag}</if>
+            <if test="proxyParam != null  and proxyParam != ''"> and proxy_param = #{proxyParam}</if>
+            <if test="adminId != null "> and admin_id = #{adminId}</if>
+            <if test="rm1 != null  and rm1 != ''"> and rm1 = #{rm1}</if>
+            <if test="rm2 != null  and rm2 != ''"> and rm2 = #{rm2}</if>
+        </where>
+        order by update_time desc
+    </select>
+    
+    <select id="selectSysHttpCollectionById" parameterType="Long" resultMap="SysHttpCollectionResult">
+        <include refid="selectSysHttpCollectionVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysHttpCollection" parameterType="SysHttpCollection" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_http_collection
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="httpUrl != null and httpUrl != ''">http_url,</if>
+            <if test="httpMethod != null">http_method,</if>
+            <if test="httpParam != null">http_param,</if>
+            <if test="dataDeal != null">data_deal,</if>
+            <if test="cronFlag != null">cron_flag,</if>
+            <if test="cronParam != null">cron_param,</if>
+            <if test="httpsFlag != null">https_flag,</if>
+            <if test="httpsCertificate != null">https_certificate,</if>
+            <if test="proxyFlag != null">proxy_flag,</if>
+            <if test="proxyParam != null">proxy_param,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="adminId != null">admin_id,</if>
+            <if test="remark != null">remark,</if>
+            <if test="rm1 != null">rm1,</if>
+            <if test="rm2 != null">rm2,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="httpUrl != null and httpUrl != ''">#{httpUrl},</if>
+            <if test="httpMethod != null">#{httpMethod},</if>
+            <if test="httpParam != null">#{httpParam},</if>
+            <if test="dataDeal != null">#{dataDeal},</if>
+            <if test="cronFlag != null">#{cronFlag},</if>
+            <if test="cronParam != null">#{cronParam},</if>
+            <if test="httpsFlag != null">#{httpsFlag},</if>
+            <if test="httpsCertificate != null">#{httpsCertificate},</if>
+            <if test="proxyFlag != null">#{proxyFlag},</if>
+            <if test="proxyParam != null">#{proxyParam},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="adminId != null">#{adminId},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="rm1 != null">#{rm1},</if>
+            <if test="rm2 != null">#{rm2},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysHttpCollection" parameterType="SysHttpCollection">
+        update sys_http_collection
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="httpUrl != null and httpUrl != ''">http_url = #{httpUrl},</if>
+            <if test="httpMethod != null">http_method = #{httpMethod},</if>
+            <if test="httpParam != null">http_param = #{httpParam},</if>
+            <if test="dataDeal != null">data_deal = #{dataDeal},</if>
+            <if test="cronFlag != null">cron_flag = #{cronFlag},</if>
+            <if test="cronParam != null">cron_param = #{cronParam},</if>
+            <if test="httpsFlag != null">https_flag = #{httpsFlag},</if>
+            <if test="httpsCertificate != null">https_certificate = #{httpsCertificate},</if>
+            <if test="proxyFlag != null">proxy_flag = #{proxyFlag},</if>
+            <if test="proxyParam != null">proxy_param = #{proxyParam},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="adminId != null">admin_id = #{adminId},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="rm1 != null">rm1 = #{rm1},</if>
+            <if test="rm2 != null">rm2 = #{rm2},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysHttpCollectionById" parameterType="Long">
+        delete from sys_http_collection where id = #{id}
+    </delete>
+
+    <delete id="deleteSysHttpCollectionByIds" parameterType="String">
+        delete from sys_http_collection where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
